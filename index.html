@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Inheritance and Prototype</title>
+</head>
+<body>
+    <h2 class="question">Q-1.Create 2 objects-parent and child.Attach methods to parent and use those methods
+        in child object using parents prototype?
+    </h2>
+    <p>ANS:- <span class="color">Output:-Niyaz30cs and NIYAZ ALAM,NIYAZ ALAM,I am parent element.</span></p>
+    <pre>
+        const parent={
+            name:"NIYAZ ALAM",
+            display:function(){
+                console.log("I am parent element");
+            }
+        }
+        
+        const child1=Object.create(parent);
+        child1.surname="Niyaz30cs";
+        const child2=Object.create(parent);
+        console.log(`${child1.surname} and ${child1.name}`);
+        console.log(child1.name);
+        child2.display();
+
+
+
+        OUTPUT:-Niyaz30cs and NIYAZ ALAM
+                NIYAZ ALAM
+                I am parent element
+    </pre>
+
+<h2 class="question">Q-2.Write code to explain prototype chaining?</h2>
+<p>ANS:- <span class="color">i am plusGrandFather...!!,
+    I am GrandFather..!!,
+    I am father...!!
+    <br>
+    <br>
+    Every object in javascript has a built-in property, which is called its prototype.the prototype 
+    is itself object. prototype will have its own prototype,making prototype chain.
+    </span></p>
+<pre>
+    const plusGrandFather={
+        function1:function(){
+            console.log("i am plusGrandFather...!!");
+        }
+    }
+    
+    const GrandFather=Object.create(plusGrandFather);
+    
+    GrandFather.function2=function(){
+        console.log("I am GrandFather..!!");
+    }
+    
+    const father=Object.create(GrandFather);
+    
+    father.function3=function(){
+        console.log("I am father...!!");
+    }
+    
+    const child=Object.create(father);
+    
+    child.function1();
+    child.function2();
+    child.function3();
+
+
+    OUTPUT:-i am plusGrandFather...!!
+            I am GrandFather..!!
+            I am father...!!
+    
+</pre>
+<h2 class="question">Q-3.Add a method to calculate sum of all elements in Array in array's prototype
+    use that method to calculate sum for multiple arrays?
+</h2>
+<p>ANS:- <span class="color">OUTPUT:-195</span></p>
+<pre>
+    let arr=[1,2,3,4,5,6,7,8,9,10,20,30,40,50];
+
+    let sum=arr.reduce((pre,current)=>pre+=current,0);
+
+    console.log(sum);
+
+
+    OUTPUT:-195
+</pre>
+
+<h2 class="question">Q-4.Write a javascript function to retrieve all the names of object's own and
+    inherited properties?
+</h2>
+<p>ANS:- <span class="color">OUTPUT:-[
+    'name',
+    'age',
+    'gender',
+    'occupation',
+    'constructor',
+    '__defineGetter__',
+    '__defineSetter__',
+    'hasOwnProperty',
+    '__lookupGetter__',
+    '__lookupSetter__',
+    'isPrototypeOf',
+    'propertyIsEnumerable',
+    'toString',
+    'valueOf',
+    '__proto__',
+    'toLocaleString'
+  ]
+  </span></p>
+<pre>
+    var obj = {
+        name: "John",
+        age: 30
+      };
+      
+      var proto = {
+        gender: "Male",
+        occupation: "Engineer"
+      };
+      
+      Object.setPrototypeOf(obj, proto);
+      var props = getAllProperties(obj);
+      console.log(props);
+    
+    
+    function getAllProperties(obj) {
+        var props = [];
+      
+        props = props.concat(Object.getOwnPropertyNames(obj));
+      
+        var proto = Object.getPrototypeOf(obj);
+        if (proto !== null) {
+          props = props.concat(getAllProperties(proto));
+        }
+        return props;
+      }
+
+
+      OUTPUT:-[
+      'name',
+      'age',
+      'gender',
+      'occupation',
+      'constructor',
+      '__defineGetter__',
+      '__defineSetter__',
+      'hasOwnProperty',
+      '__lookupGetter__',
+      '__lookupSetter__',
+      'isPrototypeOf',
+      'propertyIsEnumerable',
+      'toString',
+      'valueOf',
+      '__proto__',
+      'toLocaleString'
+    ]
+    
+</pre>
+</body>
+<script src="./script.js"></script>
+</html>
